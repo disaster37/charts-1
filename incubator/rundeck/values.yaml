@@ -123,6 +123,14 @@ resources: {}
   #  cpu: 100m
   #  memory: 128Mi
 
+initResources: {}
+  # limits:
+  #   cpu: "25m"
+  #   # memory: "128Mi"
+  # requests:
+  #   cpu: "25m"
+  #   memory: "128Mi"
+
 nodeSelector: {}
 
 tolerations: []

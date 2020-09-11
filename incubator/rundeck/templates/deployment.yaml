@@ -228,9 +228,9 @@ spec:
           volumeMounts:
             - name: remco
               mountPath: /tmp/remco-partials
-      {{- if .Values.initContainers }}
+        {{- if .Values.initContainers }}
         {{- toYaml .Values.initContainers | nindent 8 }}
-      {{- end }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
