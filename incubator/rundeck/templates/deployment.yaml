@@ -107,21 +107,21 @@ spec:
           - name: extra-secret
             mountPath: /home/rundeck/extra/
         {{- end }}
-        {{- if .Values.rundeck.extra }}
-        {{- if .Values.rundeck.extra.extra-framework.properties }}
+        {{- range $path, $config := .Values.rundeck.extra }}
+        {{- if eq "extra-framework.properties" $path }}
           - name: extra-config
-            mountPath: /tmp/remco-partials/framework/extra-framework.properties
-            subPath: extra-framework.properties
+            mountPath: /tmp/remco-partials/framework/{{ $path }}
+            subPath: {{ $path }}
         {{- end }}
-        {{- if .Values.rundeck.extra.extra-rundeck-config.properties }}
+        {{- if eq "extra-rundeck-config.properties" $path }}
           - name: extra-config
-            mountPath: /tmp/remco-partials/framework/extra-rundeck-config.properties
-            subPath: extra-rundeck-config.properties
+            mountPath: /tmp/remco-partials/rundeck-config/{{ $path }}
+            subPath: {{ $path }}
         {{- end }}
-        {{- if .Values.rundeck.extra.extra-artifact-repositories.yaml }}
+        {{- if eq "extra-artifact-repositories.yaml" $path }}
           - name: extra-config
-            mountPath: /tmp/remco-partials/framework/extra-artifact-repositories.yaml
-            subPath: extra-artifact-repositories.yaml
+            mountPath: /tmp/remco-partials/artifact-repositories/{{ $path }}
+            subPath: {{ $path }}
         {{- end }}
         {{- end }}
         {{- if .Values.volumeMounts }}
