@@ -63,6 +63,9 @@ spec:
             capabilities:
               add:
                 - CHOWN
+                - NET_BIND_SERVICE
+                - SETGID
+                - SETUID
         - name: {{ .Chart.Name }}
           command:
           - /bin/sh
