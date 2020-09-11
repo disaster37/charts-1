@@ -1,4 +1,4 @@
-{{- if .Values.rundeck.extra }}
+{{- if .Values.rundeck.extra -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
