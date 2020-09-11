@@ -4,7 +4,7 @@
 
 image:
   repository: rundeck/rundeck
-  tag: 3.2.7
+  tag: 3.3.3
   pullPolicy: IfNotPresent
 
 deployment:
@@ -31,6 +31,18 @@ rundeck:
     # RUNDECK_STORAGE_CONVERTER_1_CONFIG_PASSWORD: ${RUNDECK_STORAGE_PASSWORD}
     # RUNDECK_CONFIG_STORAGE_CONVERTER_1_CONFIG_PASSWORD: ${RUNDECK_STORAGE_PASSWORD}
     # RUNDECK_TOKENS_FILE: /home/rundeck/extra/tokens.properties
+
+  # Allows you to add config files in /tmp/remco-partials to merge it in final file
+  # extra-framework.properties will be added to /tmp/remco-partials/framework/extra-framework.properties and merge to /home/rundeck/etc/framework.properties
+  # extra-rundeck-config.properties will be added to /tmp/remco-partials/framework/extra-rundeck-config.properties and merge to /home/rundeck/server/config/rundeck-config.properties
+  # extra-artifact-repositories.yaml will be added to /tmp/remco-partials/framework/extra-artifact-repositories.yaml and merge to /home/rundeck/server/config/artifact-repositories.yaml
+  extra: {}
+  #  extra-framework.properties: |
+  #
+  #  extra-rundeck-config.properties: |
+  #    server.useForwardHeaders=true
+  #  extra-artifact-repositories.yaml: |
+  #
 
   # Name of the secret containing SSH files to mount under ~/.ssh
   # sshSecrets: "ssh-secret"

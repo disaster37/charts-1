@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-extra-configmap
+  labels: {{ include "rundeck.labels" . | indent 4 }}
+data:
+{{- range $path, $config := .Values.rundeck.extra }}
+  {{ $path }}: |
+{{ $config | indent 4 -}}
+{{- end -}}
+{{- end -}}
