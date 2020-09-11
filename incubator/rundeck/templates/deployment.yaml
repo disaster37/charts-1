@@ -92,6 +92,8 @@ spec:
           volumeMounts:
           - name: data
             mountPath: /home/rundeck/server/data
+          - name: remco
+            mountPath: /tmp/remco-partials
         {{- if .Values.rundeck.sshSecrets }}
           - name: sshkeys
             mountPath: /home/rundeck/.ssh
@@ -149,6 +151,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
+        - name: remco
+          emptyDir: {}
         {{- if .Values.nginx.enabled }}
         - name: nginx-config
           configMap:
@@ -203,8 +207,28 @@ spec:
       {{- if .Values.volumes }}
         {{- toYaml .Values.volumes | nindent 8}}
       {{- end }}
-      {{- if .Values.initContainers }}
+      
       initContainers:
+        - name: fix-perms
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - sh
+            - -c
+            - |
+              #!/usr/bin/env sh
+              set -euo pipefail
+
+              mkdir -p /tmp/remco-partials/rundeck-config
+              mkdir -p /tmp/remco-partials/framework
+              mkdir -p /tmp/remco-partials/artifact-repositories
+              chown -R rundeck /tmp/remco-partials
+          resources:
+{{ toYaml .Values.initResources | indent 10 }}
+          volumeMounts:
+            - name: remco
+              mountPath: /tmp/remco-partials
+      {{- if .Values.initContainers }}
         {{- toYaml .Values.initContainers | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
