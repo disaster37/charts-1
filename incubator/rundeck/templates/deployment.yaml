@@ -149,12 +149,14 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
+        {{- if .Values.nginx.enabled }}
         - name: nginx-config
           configMap:
             name: {{ .Release.Name }}-nginx-configmap
             items:
               - key: nginx.conf
                 path: nginx.conf
+        {{- end }}
         - name: data
         {{- if .Values.persistence.enabled }}
         {{- if .Values.persistence.awsVolumeId }}
