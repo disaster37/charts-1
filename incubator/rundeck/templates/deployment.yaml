@@ -59,6 +59,10 @@ spec:
           volumeMounts:
             - name: nginx-config
               mountPath: /etc/nginx
+          securityContext:
+            capabilities:
+              add:
+                - CHOWN
         - name: {{ .Chart.Name }}
           command:
           - /bin/sh
