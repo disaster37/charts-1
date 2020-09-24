@@ -1,12 +1,12 @@
-{{- if .Values.rundeck.extra -}}
+{{- if or .Values.rundeck.extraConfigMap -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name }}-extra-configmap
+  name: {{ .Values.rundeck.extraConfigName }}
   labels: {{ include "rundeck.labels" . | indent 4 }}
 data:
-{{- range $path, $config := .Values.rundeck.extra }}
-  {{ $path }}: |
+{{- range $name, $config := .Values.rundeck.extraConfigMap }}
+  {{ $name }}: |
 {{ $config | indent 4 -}}
 {{- end -}}
 {{- end -}}
