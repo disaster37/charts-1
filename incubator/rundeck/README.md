@@ -32,6 +32,10 @@ rundeck.sshSecrets | A reference to the Kubernetes Secret that contains the ssh 
 rundeck.awsConfigSecret | Name of secret to mount under the `~/.aws/` directory. Useful when AWS IRSA is not an option. | ""
 rundeck.kubeConfigSecret | Name of secret to mount under the `~/.kube/` directory. Useful when Rundeck needs configuration for multiple K8s clusters. | ""
 rundeck.extraConfigSecret | Name of secret containing additional files to mount at `~/extra/`. Can be useful for working with RUNDECK_TOKENS_FILE configuration | ""
+rundeck.extraRemcoTemplates | Name and contend of remco templates you should to inject on rundeck container | {}
+rundeck.extraRemcoResources | Name and contend of remco resources you should to inject on rundeck container | {}
+rundeck.extraConfigName | Name of configmap to add extra configs | rundeck-extra-config
+rundeck.extraConfigMap | Name and contend of extra configs | {}
 nginxConfOverride | An optional multi-line value that can replace the default nginx.conf. | ""
 persistence.enabled | Whether or not to attach persistent storage to the Rundeck pod | false
 persistence.claim.create | Whether the helm chart should create a persistent volume claim. See the values.yaml for more claim options | false
@@ -44,6 +48,8 @@ volumes | volumes made available to all containers | ""
 volumeMounts | volumeMounts to add to the rundeck container | ""
 initContainers | can be used to download plugins or customise your rundeck installation | ""
 sideCars | can be used to run additional containers in the pod | ""
+nginx.enabled | Permit to not deploy nginx pod | true
+
 
 ## AWS & K8s Permissions
 
